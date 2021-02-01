@@ -15,6 +15,12 @@ class User implements UserInterface
     public const STATUS_ACTIVE = 1;
     public const STATUS_PENDING = 2;
 
+    public const STATUS_LABELS = [
+        self::STATUS_DISABLED => 'disabled',
+        self::STATUS_ACTIVE => 'active',
+        self::STATUS_PENDING => 'pending',
+    ];
+
     public const ROLE_USER = 'ROLE_USER';
     public const ROLE_ADMIN = 'ROLE_ADMIN';
 

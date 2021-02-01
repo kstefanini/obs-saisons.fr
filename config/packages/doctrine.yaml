@@ -45,6 +45,7 @@ doctrine:
             string_functions:
                 regexp: DoctrineExtensions\Query\Mysql\Regexp
                 group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
+                greatest: DoctrineExtensions\Query\Mysql\Greatest
         filters:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter

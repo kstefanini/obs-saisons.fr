@@ -348,4 +348,12 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('admin_user_dashboard', ['userId' => $userId]);
     }
+
+    /**
+     * @Route("/admin/stats", name="admin_stats")
+     */
+    public function adminStats()
+    {
+        return $this->render('admin/stats.html.twig');
+    }
 }

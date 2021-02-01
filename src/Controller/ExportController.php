@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\Observation;
 use App\Entity\Species;
 use App\Entity\Station;
+use App\Entity\User;
 use App\Service\EntityJsonSerialize;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -96,6 +97,22 @@ class ExportController extends AbstractController
     }
 
     /**
+     * @Route("/export/all", name="export_all")
+     */
+    public function exportAll(EntityManagerInterface $em)
+    {
+        $data = $em->getRepository(Observation::class)->findAll();
+
+        $serializer = new EntityJsonSerialize();
+
+        return new Response(
+            $serializer->jsonSerializeObservationForExport($data),
+            Response::HTTP_OK,
+            ['content-type' => 'application/json']
+        );
+    }
+
+    /**
      * @Route("/export/observation/events-evolution", name="events_evolution")
      */
     public function exportForEventsEvolutionChart(
@@ -155,5 +172,22 @@ class ExportController extends AbstractController
         $data = $em->getRepository(Event::class)->findBySpeciesArray($species);
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/export/users/stats", name="export_users_stats")
+     */
+    public function exportUsersStats(EntityManagerInterface $em): JsonResponse
+    {
+        $userRepository = $em->getRepository(User::class);
+        $usersStats = $userRepository->countByStatus();
+        dump($usersStats);
+        $usersDeleted = $userRepository->countDeleted();
+
+        foreach(User::STATUS_LABELS as $userStatus => $userStatusLabel) {
+
+        }
+
+        return new JsonResponse($usersStats);
     }
 }

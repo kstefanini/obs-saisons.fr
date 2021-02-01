@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Admin | Observatoire des saisons{% endblock %}
 
 {% block main_content %}
     {% include 'layout/header.html.twig' with ({
@@ -12,5 +12,6 @@
         <li><a href="{{ path('admin_species_list') }}">Modifier une fiche espèce ?</a></li>
         <li><a href="{{ path('admin_pages_list') }}">Modifier une page statique ?</a></li>
         <li><a href="{{ path('admin_users_list') }}">Modifier un profil utilisateur ?</a></li>
+        <li><a href="{{ path('admin_stats') }}">Voir les stats ?</a></li>
     </ul>
 {% endblock %}

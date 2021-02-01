@@ -184,7 +184,8 @@ class EntityJsonSerialize
         ];
     }
 
-    public function timestampableCallback(\DateTimeInterface $date) {
+    public function timestampableCallback(\DateTimeInterface $date): string
+    {
         return $date->format('c');
     }
 
@@ -213,7 +214,7 @@ class EntityJsonSerialize
             'id' => $event->getId(),
             'name' => $event->getName(),
             'codeBbch' => $event->getStadeBbch(),
-            'displayName' => ucfirst($event->getName().' '.$event->getStadeBbch()),
+            'displayName' => ucfirst($event->getName()).($event->getStadeBbch() ? ' '.$event->getStadeBbch() : ''),
         ];
     }
 

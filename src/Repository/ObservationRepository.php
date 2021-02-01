@@ -284,6 +284,28 @@ class ObservationRepository extends ServiceEntityRepository
 
     }
 
+    public function findForExport(): array
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->innerJoin('o.individual', 'i')
+            ->innerJoin('o.event', 'e')
+            ->innerJoin('i.station', 'st')
+            ->innerJoin('i.species', 'sp')
+            ->innerJoin('sp.type', 'ts')
+            ->addSelect(['i', 'e', 'st', 'sp', 'ts'])
+        ;
+
+        $qb->set('updatedAt', 'greatest(o.updatedAt, i.updatedAt, st.updatedAt)');
+        $qb->addSelect('updatedAt');
+
+        $qb->orderBy('updated', 'DESC');
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Observation[] Returns an array of Observation objects
     //  */
